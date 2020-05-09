@@ -19,3 +19,4 @@ workflows:
   main:
     jobs:
       - build-model-as-pip-pkg
+      

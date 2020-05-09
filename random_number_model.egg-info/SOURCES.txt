@@ -1,0 +1,8 @@
+README.md
+setup.py
+model_pip_pkg/__init__.py
+model_pip_pkg/model.py
+random_number_model.egg-info/PKG-INFO
+random_number_model.egg-info/SOURCES.txt
+random_number_model.egg-info/dependency_links.txt
+random_number_model.egg-info/top_level.txt

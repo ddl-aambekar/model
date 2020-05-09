@@ -1,1 +1,3 @@
-# this repository houses code for a random model built using python
+# Random number model package
+
+This model is used to return a random number over a specified range

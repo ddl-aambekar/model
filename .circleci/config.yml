@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build-model-as-pip-pkg:
+  build-and-export-as-pip-pkg:
     executor: python/default
     steps:
       - checkout
@@ -12,11 +12,11 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: ./build_model_as_pip_package.sh
-          name: Build Model as Pip Package
+          command: ./build_and_export_model_as_pip_pkg.sh
+          name: Build and Export Model as Pip Package
 
 workflows:
   main:
     jobs:
-      - build-model-as-pip-pkg
+      - build-and-export-model-as-pip-pkg
       

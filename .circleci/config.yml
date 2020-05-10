@@ -15,8 +15,20 @@ jobs:
           command: ./build_and_export_model_as_pip_pkg.sh
           name: Build and Export Model as Pip Package
 
+  build-and-export-model-to-ECR:
+      executor: python/default
+      steps:
+        - checkout
+        - python/load-cache
+        - python/install-deps
+        - python/save-cache
+        - run:
+            command: ./BuildAndExportModelToECR.py
+            name: Build and Export Model to ECR
+
 workflows:
   main:
     jobs:
       - build-and-export-model-as-pip-pkg
+      - build-and-export-model-to-ECR
       

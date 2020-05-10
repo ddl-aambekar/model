@@ -23,7 +23,7 @@ jobs:
         - python/install-deps
         - python/save-cache
         - run:
-            command: ./BuildAndExportModelToECR.py
+            command: | python ./BuildAndExportModelToECR.py
             name: Build and Export Model to ECR
 
 workflows:

@@ -74,7 +74,7 @@ if __name__== "__main__":
 			exportModelToExternalRegistry(buildModelId, buildModelVersionNumber).get("status")
 			modelBuildIsComplete = True
 			break
-		if(numberOfRetries is 7):
+		if(numberOfRetries == 7):
 			break
 		numberOfRetries += 1
 		time.sleep(60) #sleep for 60 seconds

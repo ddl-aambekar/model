@@ -16,12 +16,16 @@ jobs:
           name: Build and Export Model as Pip Package
 
   build-model-in-Domino:
-    executor: python/default
+    docker:
+      - image: circleci/python:3.6.2-stretch-browsers
+        environment:
+          TEST_VAR: testing
+
     steps:
-      - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
+#      - checkout
+#      - python/load-cache
+#      - python/install-deps
+#      - python/save-cache
       - run:
           name: Get Owner ID
           command: |
@@ -34,8 +38,14 @@ jobs:
             PROJECT_ID=$(curl --location --request GET "https://staging.domino.tech/v4/projects?name=model-export-demo&ownerId=$OWNER_ID" --header "Content-Type: application/json" --header "X-Domino-Api-Key: $DOMINO_USER_API_KEY" --data-raw "")
             echo "PROJECT_ID is: $PROJECT_ID"
 
+      - run:
+          name: Trigger python code
+          command: |
+            python3 BuildAndExportModelToECR.py
+
+
 workflows:
   main:
     jobs:
-      - build-and-export-model-as-pip-pkg
+#      - build-and-export-model-as-pip-pkg
       - build-model-in-Domino

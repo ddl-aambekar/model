@@ -15,7 +15,7 @@ jobs:
           command: ./build_and_export_model_as_pip_pkg.sh
           name: Build and Export Model as Pip Package
 
-  build-and-export-model-in-Domino:
+  build-and-export-model-to-ECR:
     executor: python/default
     steps:
       - checkout
@@ -24,11 +24,11 @@ jobs:
       - python/save-cache
       - run:
           command: python3 BuildAndExportModelToECR.py
-          name: Build and Export Model as Pip Package
+          name: Build and Export Model to ECR
           
 
 workflows:
   main:
     jobs:
       - build-and-export-model-as-pip-pkg
-      - build-and-export-model-in-Domino
+      - build-and-export-model-to-ECR

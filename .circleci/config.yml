@@ -44,7 +44,13 @@ jobs:
             pip install -r requirements.txt
 
       - run:
-          - command: |
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+            
+      - run:
+          command: |
             . venv/bin/activate
             python BuildAndExportModelToECR.py
 

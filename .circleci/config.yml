@@ -25,34 +25,14 @@ jobs:
       - run:
           name: Get Owner ID
           command: |
-            OWNER_ID=$(curl --location --request GET "https://staging.domino.tech/v4/users/self" \
-                      --header "Content-Type: application/json" \
-                      --header "X-Domino-Api-Key: $DOMINO_USER_API_KEY" \
-                      --data-raw "")
-            echo "OWNER_ID: $OWNER_ID"
+            OWNER_ID=$(curl --location --request GET "https://staging.domino.tech/v4/users/self" --header "Content-Type: application/json" --header "X-Domino-Api-Key: $DOMINO_USER_API_KEY" --data-raw "")
+            echo "OWNER_ID is: $OWNER_ID"
+
       - run:
           name: Get Project ID
           command: |
-            PROJECT_ID=$(curl --location --request GET "https://staging.domino.tech/v4/projects?name=model-export-demo&ownerId=$OWNER_ID" \
-                       --header "Content-Type: application/json" \
-                       --header "X-Domino-Api-Key: $DOMINO_USER_API_KEY" \
-                       --data-raw "")
-      - run:
-          name: Build Model
-          command: |
-            MODEL_BUILD_RESPONSE=$(curl --location --request POST "https://staging.domino.tech/v4/models/buildModelImage" \
-                         --header "Content-Type: application/json" \
-                         --header "X-Domino-Api-Key: $$DOMINO_USER_API_KEY" \
-                         --data-raw "{ \
-                           "projectId": "$PROJECT_ID", \
-                           "inferenceFunctionFile": "model.py", \
-                           "inferenceFunctionToCall": "my_model", \
-                           "environmentId": "5d7abf2715f3690007f23081", \
-                           "modelName": "My Test Model for ECR", \
-                           "logHttpRequestResponse": true, \
-                           "description": "Testing default model" \
-                         }")
-            echo $MODEL_BUILD_RESPONSE
+            PROJECT_ID=$(curl --location --request GET "https://staging.domino.tech/v4/projects?name=model-export-demo&ownerId=$OWNER_ID" --header "Content-Type: application/json" --header "X-Domino-Api-Key: $DOMINO_USER_API_KEY" --data-raw "")
+            echo "PROJECT_ID is: $PROJECT_ID"
 
 workflows:
   main:

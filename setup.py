@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="random_number_model",
-    version="0.0.8",
+    version="0.0.9",
     author="Akshay Ambekar",
     author_email="akshay.ambekar@dominodatalab.com",
     description="A random number model",

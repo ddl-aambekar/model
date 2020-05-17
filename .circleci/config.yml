@@ -29,6 +29,7 @@ jobs:
                       --header "Content-Type: application/json" \
                       --header "X-Domino-Api-Key: $DOMINO_USER_API_KEY" \
                       --data-raw "")
+            echo "OWNER_ID: $OWNER_ID"
       - run:
           name: Get Project ID
           command: |

@@ -39,14 +39,14 @@ jobs:
       #            echo "PROJECT_ID is: $PROJECT_ID"
       - run:
           command: |
-              python3 -m venv venv
-              . venv/bin/activate
-              pip install -r requirements.txt
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
 
       - run:
           - command: |
-              . venv/bin/activate
-              python BuildAndExportModelToECR.py
+            . venv/bin/activate
+            python BuildAndExportModelToECR.py
 
 workflows:
   main:

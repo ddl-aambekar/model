@@ -5,9 +5,7 @@ import time
 import logging
 
 logging.basicConfig(level=logging.INFO)
-project_name = "model-export-demo"
 user_api_key = os.environ['DOMINO_USER_API_KEY']
-domino_url = "staging.domino.tech"
 
 def getOwnerId():
 	logging.info('Getting ownerId')
@@ -30,7 +28,7 @@ def buildModel():
 	    		"inferenceFunctionFile": "model_pip_pkg/model.py",
 	    		"inferenceFunctionToCall": "my_model",
 	    		"environmentId": None,
-	    		"modelName": "My Test Model for via Sublime",
+	    		"modelName": "My Test Model built in workshop",
 	    		"logHttpRequestResponse": True,
 	    		"description": "Testing default model"
     		}
@@ -57,12 +55,8 @@ def exportModelToExternalRegistry(buildModelId, buildModelVersionNumber):
 	response = requests.post("https://"+domino_url+"/v4/models/"+str(buildModelId)+"/"+str(buildModelVersionNumber)+"/exportImageToRegistry", headers = headers, data = json_data)
 	return response.json()
 
-if __name__== "__main__":
-	buildModelResponse = buildModel()
-	buildModelId = buildModelResponse.get("modelId")
-	buildModelVersionNumber = buildModelResponse.get("modelVersionId")
-	buildModelStatus = getModelBuildStatus(buildModelId, buildModelVersionNumber).get("status")
-	logging.info('buildModelStatus is '+buildModelStatus)
+def exportModelIfBuilt(buildModelStatus):
+
 	modelBuildIsComplete = False
 	numberOfRetries = 0
 
@@ -71,12 +65,59 @@ if __name__== "__main__":
 		buildModelStatus = getModelBuildStatus(buildModelId, buildModelVersionNumber).get("status")
 		if(buildModelStatus == "complete"):
 			logging.info('Model build is complete. Exporting the model now...')
-			exportModelToExternalRegistry(buildModelId, buildModelVersionNumber).get("status")
+			exportModelResponse = exportModelToExternalRegistry(buildModelId, buildModelVersionNumber)
 			modelBuildIsComplete = True
 			break
 		if(numberOfRetries == 7):
 			break
 		numberOfRetries += 1
-		time.sleep(60) #sleep for 60 seconds
+		time.sleep(60) #sleep for 60 seconds before checking model build status again
+	
+	return exportModelResponse
+
+def getExportModelStatus(exportId):
+	response = requests.get("https://"+domino_url+"/v4/models/"+exportId+"/getExportImageStatus", auth=(user_api_key, user_api_key))
+	return response.json()
+
+def shareExportStatus(exportId):
+	exportModelIsComplete = False
+	numberOfChecks = 0
+
+	while(exportModelIsComplete is not True):
+		
+		exportModelStatusResponse = getExportModelStatus(exportId)
+		logging.info('number of checks: '+str(numberOfChecks)+', export model status: '+str(exportModelStatusResponse))
+		if(exportModelStatusResponse.get("status") == "complete"):
+			logging.info('Export is complete!!!')
+			exportModelIsComplete = True
+			break
+		if(numberOfChecks == 7):
+			break
+		numberOfChecks += 1
+		time.sleep(60) #sleep for 60 seconds before checking model export again
+	
+	return exportModelResponse
+
+
+if __name__== "__main__":
+
+	project_name = "model-export-demo"
+	domino_url = "workshop.cs.domino.tech"
+
+	logging.info("Starting model build...")
+	buildModelResponse = buildModel()
+	buildModelId = buildModelResponse.get("modelId")
+	buildModelVersionNumber = buildModelResponse.get("modelVersionId")
+	logging.info("Waiting for 120 seconds before checking if model is built...")
+	time.sleep(120)
+	buildModelStatus = getModelBuildStatus(buildModelId, buildModelVersionNumber).get("status")
+	logging.info('buildModelStatus is '+buildModelStatus)
+	
+	exportModelResponse = exportModelIfBuilt(buildModelStatus)
+	exportId = exportModelResponse.get("exportId")
+	logging.info('exportId for model is '+exportId)
+
+	shareExportStatus(exportId)
+
 
 

@@ -23,6 +23,9 @@ jobs:
 
     steps:
       - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
       #      - run:
       #          name: Get Owner ID
       #          command: |

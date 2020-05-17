@@ -22,10 +22,10 @@ jobs:
           TEST_VAR: testing
 
     steps:
-#      - checkout
-#      - python/load-cache
-#      - python/install-deps
-#      - python/save-cache
+     - checkout
+     - python/load-cache
+     - python/install-deps
+     - python/save-cache
 #      - run:
 #          name: Get Owner ID
 #          command: |

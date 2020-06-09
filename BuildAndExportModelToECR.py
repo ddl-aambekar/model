@@ -101,8 +101,8 @@ def shareExportStatus(exportId):
 
 if __name__== "__main__":
 
-	project_name = "model-export-demo"
-	domino_url = "workshop.cs.domino.tech"
+	project_name = "model-ops-demo"
+	domino_url = "demo.dominodatalab.com"
 
 	logging.info("Starting model build...")
 	buildModelResponse = buildModel()

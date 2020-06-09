@@ -6,6 +6,10 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 user_api_key = os.environ['DOMINO_USER_API_KEY']
+with open('setup.py') as f:
+    c = f.read()
+    
+TAG = c.partition('version=')[2].partition(',')[0]
 
 def getOwnerId():
 	logging.info('Getting ownerId')
@@ -47,7 +51,8 @@ def exportModelToExternalRegistry(buildModelId, buildModelVersionNumber):
 	json_data = js.dumps(
 			{
 				"registryUrl": "521624712688.dkr.ecr.us-west-2.amazonaws.com",
-				"repository": "sagemaker-export", "tag": "random-number-model",
+				"repository": "sagemaker-export", 
+                "tag": 'randome_number_model' + TAG,
 				"username": "AWS",
 				"password": ""+os.environ['ECR_PASSWORD']+""
 			}

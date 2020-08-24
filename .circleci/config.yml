@@ -1,13 +1,34 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-# Use a package of configuration called an orb.
+
 orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-# Orchestrate or schedule a set of jobs
+  python: circleci/python@0.2.1
+
+jobs:
+  build-and-export-model-as-pip-pkg:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run:
+          command: ./build_and_export_model_as_pip_pkg.sh
+          name: Build and Export Model as Pip Package
+
+  build-and-export-model-to-ECR:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run:
+          command: python3 BuildAndExportModelToECR.py
+          name: Build and Export Model to ECR
+          
+
 workflows:
-  # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
+  main:
     jobs:
-      - welcome/run
+      - build-and-export-model-as-pip-pkg
+      - build-and-export-model-to-ECR

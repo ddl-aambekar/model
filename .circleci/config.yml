@@ -31,4 +31,10 @@ workflows:
   main:
     jobs:
       - build-and-export-model-as-pip-pkg
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/
       - build-and-export-model-to-ECR
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/

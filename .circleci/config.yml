@@ -30,13 +30,7 @@ jobs:
 workflows:
   main:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
       - build-and-export-model-as-pip-pkg:
-          requires:
-            - build
           filters:
             tags:
               only: /^\d+\.\d+\.\d+$/

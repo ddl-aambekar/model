@@ -35,8 +35,6 @@ workflows:
             tags:
               only: /^\d+\.\d+\.\d+$/
       - build-and-export-model-to-ECR:
-          requires:
-            - build
           filters:
             tags:
               only: /^\d+\.\d+\.\d+$/

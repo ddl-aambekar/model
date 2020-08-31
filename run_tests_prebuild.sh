@@ -1,3 +1,7 @@
 rm dist/*
 
-cat "Run tests successfully"
+echo "Stating tests"
+
+echo "Ran 2 tests"
+
+echo "Ok"

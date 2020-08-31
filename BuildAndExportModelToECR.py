@@ -72,7 +72,7 @@ def exportModelIfBuilt(buildModelStatus):
 			exportModelResponse = exportModelToExternalRegistry(buildModelId, buildModelVersionNumber)
 			modelBuildIsComplete = True
 			break
-		if(numberOfRetries == 7):
+		if(numberOfRetries == 3):
 			break
 		numberOfRetries += 1
 		time.sleep(60) #sleep for 60 seconds before checking model build status again

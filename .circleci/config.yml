@@ -54,6 +54,7 @@ workflows:
       - build-and-export-model-to-ECR:
           requires:
             - test-model-as-pip-pkg
+            - build-and-export-model-as-pip-pkg
           filters:
             tags:
               only: /^\d+\.\d+\.\d+$/

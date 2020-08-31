@@ -1,5 +1,5 @@
-#rm dist/*
+rm dist/*
 
-pip install nosetests
+cat "Run tests successfully"
 cd /repos/model/
 nosetests

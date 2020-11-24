@@ -50,8 +50,8 @@ def exportModelToExternalRegistry(buildModelId, buildModelVersionNumber):
 	headers = {"Content-Type": "application/json", "X-Domino-Api-Key": user_api_key}
 	json_data = js.dumps(
 			{
-				"registryUrl": "521624712688.dkr.ecr.us-west-2.amazonaws.com",
-				"repository": "sagemaker-export", "tag": modelName,
+				"registryUrl": "946429944765.dkr.ecr.us-east-1.amazonaws.com",
+				"repository": "akshay-test", "tag": modelName,
 				"username": "AWS",
 				"password": ""+os.environ['ECR_PASSWORD']+""
 			}

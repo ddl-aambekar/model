@@ -9,7 +9,7 @@ user_api_key = os.environ['DOMINO_USER_API_KEY']
 with open('setup.py') as f:
     c = f.read()
     
-modelName = "random-model-0.0.33"
+modelName = "random-model-0.0.34"
 
 def getOwnerId():
 	logging.info('Getting ownerId')

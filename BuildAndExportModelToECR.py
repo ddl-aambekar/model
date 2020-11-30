@@ -9,7 +9,7 @@ user_api_key = os.environ['DOMINO_USER_API_KEY']
 with open('setup.py') as f:
     c = f.read()
     
-modelName = "random-model-0.0.27"
+modelName = "random-model-0.0.29"
 
 def getOwnerId():
 	logging.info('Getting ownerId')
@@ -105,7 +105,7 @@ def shareExportStatus(exportId):
 
 if __name__== "__main__":
 
-	project_name = "model-ops-demo"
+	project_name = "akshay_ambekar/model-ops-demo"
 	domino_url = "demo.dominodatalab.com"
 
 	logging.info("Starting model build...")

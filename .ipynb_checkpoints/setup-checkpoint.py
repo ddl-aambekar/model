@@ -5,8 +5,8 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="random_number_model",
-    version="0.0.22",
-    author="Avinash Joshi",
+    version="0.0.38",
+    author="Akshay Ambekar",
     author_email="akshay.ambekar@dominodatalab.com",
     description="A random number model",
     long_description="A model that returns a random number between a range",
@@ -20,3 +20,4 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
 )
+

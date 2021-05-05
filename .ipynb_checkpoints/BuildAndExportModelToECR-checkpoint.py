@@ -9,7 +9,7 @@ user_api_key = os.environ['DOMINO_USER_API_KEY']
 with open('setup.py') as f:
     c = f.read()
     
-TAG = c.partition('version=')[2].partition(',')[0]
+modelName = "random-model-0.0.38"
 
 def getOwnerId():
 	logging.info('Getting ownerId')
@@ -32,7 +32,7 @@ def buildModel():
 	    		"inferenceFunctionFile": "model_pip_pkg/model.py",
 	    		"inferenceFunctionToCall": "my_model",
 	    		"environmentId": None,
-	    		"modelName": "My Test Model built in workshop",
+	    		"modelName": modelName,
 	    		"logHttpRequestResponse": True,
 	    		"description": "Testing default model"
     		}
@@ -50,8 +50,8 @@ def exportModelToExternalRegistry(buildModelId, buildModelVersionNumber):
 	headers = {"Content-Type": "application/json", "X-Domino-Api-Key": user_api_key}
 	json_data = js.dumps(
 			{
-				"registryUrl": "521624712688.dkr.ecr.us-west-2.amazonaws.com",
-				"repository": "sagemaker-export", "tag": "random-model-0.0.22",
+				"registryUrl": "946429944765.dkr.ecr.us-east-1.amazonaws.com",
+				"repository": "akshay-test", "tag": modelName,
 				"username": "AWS",
 				"password": ""+os.environ['ECR_PASSWORD']+""
 			}
